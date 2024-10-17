@@ -1,0 +1,10 @@
+Questão 1:Um algoritimo é uma sequencia de instruções ordenadas de forma logica para a resolução de uma determinada tarefa ou problema.
+
+Questão 2: Variáveis , são alocações de memoria nas quais podemos podemos guardar dados(ex: guardar nomes, números ..)
+
+Questão 3:Public double fazerDeposito(double valoDeposito) {
+o Public quer dizer que será "livre" , o double é definido para receber números com casas decimais, e o "fazerDeposito" é o nome do metodo
+
+Questão 4:Os laços de repetição são utilizados quando , o programas requer que seja inserido(digitado) vários dados repetidos, ou cálculos repetitivos.
+os tipos de laços de repetição são:
+for - do .. while - switch
