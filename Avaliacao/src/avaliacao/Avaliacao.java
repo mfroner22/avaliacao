@@ -12,9 +12,9 @@ public class Avaliacao {
     Scanner entrada = new Scanner(System.in);
     String[] produtos = new String[10];
     double[] precoConserto = new double[10];
-    int[] estoque = new int[10];
     int quantidadeProdutos = 0;
-    int[] faturamento = new int[10];
+    boolean[] consertado = new boolean[10];
+    boolean[] entregue = new boolean[10];
 
     /**
      * @param args the command line arguments
@@ -82,72 +82,75 @@ public class Avaliacao {
     public void cadastrarProduto() {
         System.out.println("Informe o nome do produto: ");
         produtos[quantidadeProdutos] = entrada.next();
-        System.out.println("Informe o preço do conserto:");
-        precoConserto[quantidadeProdutos] = entrada.nextDouble();
-        System.out.println("Informe quantos produtos para consertar:");
-        estoque[quantidadeProdutos] = entrada.nextInt();
+        consertado[quantidadeProdutos] = false;
+        entregue[quantidadeProdutos] = false;
         quantidadeProdutos++;
     }
 
     public void fazerConserto() {
-        boolean[] consertado = new boolean[10];
-        boolean[] entregue = new boolean[10];
+
         // Solicitar informações sobre consertado ou não
         System.out.println("====Consertar ====");
-        System.out.println("Informe o produto:");
+        System.out.println("Informe o produto a ser consertado:");
         String produto = entrada.next();
-        System.out.println("Informe a Quantidade:");
-        int quantidade = entrada.nextInt();
-
         for (int i = 0; i < quantidadeProdutos; i++) {
-            if (produto.equalsIgnoreCase(produtos[i])) {
-                if (quantidade <= estoque[i]) {
-                    //atualizar estoque
-                    estoque[i] = estoque[i] - quantidade;
-                    //atualizar o faturamento
-                    faturamento[i] += precoConserto[i] * quantidade;
-                    System.out.println("Produto consertado com sucesso!");
-                    return;
-                } else {
-                    System.out.println("Quantidade insuficiente para fazer o conserto");
-                    return;
-                }
+            if (produtos[i].equalsIgnoreCase(produto)) {
+                consertado[i] = true;
+                System.out.println("Informe o Valor do Conserto:");
+                precoConserto[i] = entrada.nextDouble();
+                return;
 
             }
-            System.out.println("Produto nao foi encontrado!");
-        }
 
+        }
+        System.out.println("Produto nao foi encontrado!");
     }
 
     public void entreguarProduto() {
+        System.out.println("Informe o produto a ser retirado:");
+        String produto = entrada.next();
+        for (int i = 0; i < quantidadeProdutos; i++) {
+            entregue[i] = true;
+            return;
+        }
+        System.out.println("Produto nao foi encontrado!");
 
     }
 
     public void exibirFaturamentoLoja() {
         System.out.println("=== FATURAMENTO ===");
-
+        double faturamento = 0;
         for (int i = 0; i < quantidadeProdutos; i++) {
-            System.out.println(produtos[i] + ": " + faturamento[i]);
-
+            faturamento = faturamento + precoConserto[i];
         }
+        System.out.println("Total: " + faturamento);
     }
 
     // public void exibirRelatorioProdutos() {
     //   }
     public void exibirRelatorioProdutos() {
+        for (int i = 0; i < quantidadeProdutos; i++) {
+            System.out.println(produtos[i]);
+        }
 
     }
 
     public void exibirRelatorioNaoconsertados() {
+        for (int i = 0; i < quantidadeProdutos; i++) {
+            if (!consertado[i]) {
+                System.out.println(produtos[i]);
+            }
+        }
 
     }
 
     public void exibirProdutosConsertadosNaoentregues() {
+        for (int i = 0; i < quantidadeProdutos; i++) {
+            if (consertado[i] && !entregue[i]) {
+                System.out.println(produtos[i]);
+            }
+        }
 
-    }
-
-    private boolean formatarSaida(String preço, int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
